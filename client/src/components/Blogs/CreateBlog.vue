@@ -1,26 +1,24 @@
 <template>
   <div>
-    <h1>Create Blog</h1>
+    <h1>Create Lipstick</h1>
     <form v-on:submit.prevent="createBlog">
       <p>
-        title:
+        ชื่อ:
         <input type="text" v-model="blog.title" />
       </p>
+      
       <p>
-        <strong>content:</strong>
+        สี:
+        <input type="text" v-model="blog.content" />
       </p>
-      <vue-ckeditor
-        v-model.lazy="blog.content"
-        :config="config"
-        @blur="onBlur($event)"
-        @focus="onFocus($event)"
-      />
+      
+      
       <p>
-        category:
+        ประเภท:
         <input type="text" v-model="blog.category" />
       </p>
       <p>
-        status:
+        แบรนด์:
         <input type="text" v-model="blog.status" />
       </p>
       <p>
@@ -43,7 +41,7 @@ export default {
         pictures: "null",
         content: "",
         category: "",
-        status: "saved",
+        status: "",
       },
       config: {
         toolbar: [

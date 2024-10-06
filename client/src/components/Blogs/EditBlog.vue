@@ -1,19 +1,13 @@
 <template>
     <div>
-        <h1>Edit Blog</h1>
+        <h1>Edit Lipstick</h1>
         <form v-on:submit.prevent = "editBlog">
-            <p>title: <input type="text" v-model="blog.title"></p>
-            <p><strong>content:</strong></p>
-            <vue-ckeditor 
-                v-model.lazy="blog.content" 
-                :config="config" 
-                @blur="onBlur($event)" 
-                @focus="onFocus($event)"
-            />
-            <p>category: <input type="text" v-model="blog.category"></p>
-            <p>status: <input type="text" v-model="blog.status"></p>
+            <p>ชื่อ: <input type="text" v-model="blog.title"></p>
+            <p>สี: <input type="text" v-model="blog.content" /></p>
+            <p>ประเภท: <input type="text" v-model="blog.category"></p>
+            <p>แบรนด์: <input type="text" v-model="blog.status"></p>
             <p>
-            <button type="submit">update blog</button>
+            <button type="submit">update Lipstick </button>
             <button v-on:click="navigateTo('/blogs')">กลับ</button>
             </p>
         </form>
