@@ -2,7 +2,7 @@
     <div>
         <h2>Get all Lipstick</h2>
         <p><button v-on:click="logout">Logout</button></p>
-        <h4>จำนวน Lipstick {{filteredBlogs.length}}</h4>
+        <h4>จำนวน Lipstick {{filteredBlogs.length}} รายการ </h4>
         
         <!-- ปุ่มสำหรับกรองหมวดหมู่ -->
         <div>
