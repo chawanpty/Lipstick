@@ -1,60 +1,73 @@
 <template>
   <div>
-    <h1>Create Blog</h1>
+    <h1>Add Lipstick</h1>
     <form v-on:submit.prevent="createBlog">
       <p>
-        title:
-        <input type="text" v-model="blog.title" />
+        Picture:
+        <input type="file" multiple @change="filesChange($event.target.files)" accept="image/*" />
+      <ul class="pictures">
+        <li v-for="picture in pictures" :key="picture.id">
+          <br>
+          <img :src="BASE_URL + picture.name" alt="picture image" style="width: 200px;">
+        </li>
+      </ul>
       </p>
       <p>
-        <strong>content:</strong>
-      </p>
-      <vue-ckeditor
-        v-model.lazy="blog.content"
-        :config="config"
-        @blur="onBlur($event)"
-        @focus="onFocus($event)"
-      />
-      <p>
-        category:
-        <input type="text" v-model="blog.category" />
+        Name:
+        <input type="text" v-model="blog.name" />
       </p>
       <p>
-        status:
-        <input type="text" v-model="blog.status" />
+        Color:
+        <input type="text" v-model="blog.color" />
       </p>
       <p>
-        <button type="submit">create blog</button>
+        Type:
+        <input type="text" v-model="blog.type" />
+      </p>
+      <p>
+        Brand:
+        <input type="text" v-model="blog.brand" />
+      </p>
+      <p>
+        Price:
+        <input type="text" v-model="blog.price" />
+      </p>
+      <p>
+        <button type="submit">Add Lipstick</button>
       </p>
     </form>
   </div>
 </template>
+
 <script>
 import BlogsService from "@/services/BlogsService";
-import VueCkeditor from "vue-ckeditor2";
+// import UploadService from "@/services/UploadService"; // เพิ่มการนำเข้า UploadService
 
 export default {
-  components: { VueCkeditor },
   data() {
     return {
       blog: {
-        title: "",
-        thumbnail: "null",
-        pictures: "null",
-        content: "",
-        category: "",
-        status: "saved",
+        pictures: "", // ควรเก็บเป็น array ถ้าคุณต้องการส่งหลายรูป
+        name: "",
+        color: "",
+        type: "",
+        brand: "",
+        price: "",
       },
-      config: {
-        toolbar: [
-          ["Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript"],
-        ],
-        height: 300,
-      },
+      pictures: [],
+      BASE_URL: "http://localhost:8081/assets/uploads/",
     };
   },
   methods: {
     async createBlog() {
+      if (this.pictures.length === 0) {
+        alert("Please upload at least one picture.");
+        return;
+      }
+
+      // อัปเดตชื่อไฟล์ภาพใน blog ก่อนส่งไปยังเซิร์ฟเวอร์
+      this.blog.pictures = this.pictures.map(p => p.name).join(", "); // ส่งชื่อรูปภาพที่อัปโหลด
+
       try {
         await BlogsService.post(this.blog);
         this.$router.push({
@@ -64,9 +77,30 @@ export default {
         console.log(err);
       }
     },
+
+    async filesChange(fileList) {
+      const formData = new FormData();
+      Array.from(fileList).forEach(file => {
+        formData.append('images', file); // กำหนดชื่อฟิลด์ตามที่เซิร์ฟเวอร์ต้องการ
+        this.pictures.push({ id: this.pictures.length + 1, name: file.name });
+      });
+
+      // อัปโหลดไฟล์ภาพไปยังเซิร์ฟเวอร์
+      await UploadService.upload(formData);
+    },
   },
 };
 </script>
-<style scoped>
 
+<style scoped>
+.pictures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ 
+.pictures li {
+  display: inline-block;
+  margin-right: 10px;
+}
 </style>

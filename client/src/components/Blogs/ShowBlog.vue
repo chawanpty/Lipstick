@@ -1,15 +1,15 @@
 <template>
     <div>
-        <h1>Show Blog</h1>
+        <h1>Show Lipstick</h1>
         <p>id: {{ blog.id }}</p>
-        <p>title: {{ blog.title }}</p>
-        <p>content: {{ blog.content }}</p>
-        <p>category: {{ blog.category }}</p>
-        <p>status: {{ blog.status }}</p>
+        <p>Name: {{ blog.name }}</p>
+        <p>Color: {{ blog.color }}</p>
+        <p>Type: {{ blog.type }}</p>
+        <p>Brand: {{ blog.brand }}</p>
+        <p>Price: {{ blog.price }}</p>
         <p>
-        <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">แก้ไข
-        blog</button>
-        <button v-on:click="navigateTo('/blogs')">กลับ </button>
+        <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">Edit</button>
+        <button v-on:click="navigateTo('/blogs')">Back </button>
         </p>
     </div>
 </template>

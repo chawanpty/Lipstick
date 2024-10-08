@@ -1,19 +1,22 @@
 <template>
     <div>
-        <h2>Get all blogs</h2>
+        <h2>Get all Lipstick</h2>
         <p><button v-on:click="logout">Logout</button></p>
-        <h4>จำนวน blog {{blogs.length}}</h4>
-        <p><button v-on:click="navigateTo('/blog/create')">สร้าง blog</button></p>
+        <h4>จำนวน Lipstick {{blogs.length}} รายการ </h4>
+        <p><button v-on:click="navigateTo('/blog/create')">Add Lipstick</button></p>
         <div v-for="blog in blogs" v-bind:key="blog.id">
+
+            <p><img style="margin-bottom:5px; width:50px;" :src="BASE_URL + blog.pictures" alt="picture image"></p>
             <p>id: {{ blog.id }}</p>
-            <p>title: {{ blog.title }}</p>
-            <p>content: {{ blog.content }}</p>
-            <p>category: {{ blog.category }}</p>
-            <p>status: {{ blog.status }}</p>
+            <p>Name: {{ blog.name }}</p>
+            <p>Color: {{ blog.color }}</p>
+            <p>Type: {{ blog.type }}</p>
+            <p>Brand: {{ blog.brand }}</p>
+            <p>Price: {{ blog.price }}</p>
             <p>
-            <button v-on:click="navigateTo('/blog/'+ blog.id)">ดู blog</button>
-            <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">แก้ไข blog</button>
-            <button v-on:click="deleteBlog(blog)">ลบข้อมูล</button>
+            <button v-on:click="navigateTo('/blog/'+ blog.id)">Show Lipstick</button>
+            <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">Edit </button>
+            <button v-on:click="deleteBlog(blog)">Delete</button>
             </p>
             <hr>
         </div>
