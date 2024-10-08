@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <h1>Add Lipstick</h1>
     <form v-on:submit.prevent="createBlog">
       <p>
@@ -11,14 +12,37 @@
           <img :src="BASE_URL + picture.name" alt="picture image" style="width: 200px;">
         </li>
       </ul>
-      </p>
+=======
+    <h1>Create Lipstick</h1>
+    <form v-on:submit.prevent="createBlog">
       <p>
+        ชื่อ:
+        <input type="text" v-model="blog.title" />
+>>>>>>> 01235aa450ee74d120fa205aedbece6abe0c82f9
+      </p>
+      
+      <p>
+<<<<<<< HEAD
         Name:
         <input type="text" v-model="blog.name" />
       </p>
       <p>
         Color:
         <input type="text" v-model="blog.color" />
+=======
+        สี:
+        <input type="text" v-model="blog.content" />
+      </p>
+      
+      
+      <p>
+        ประเภท:
+        <input type="text" v-model="blog.category" />
+      </p>
+      <p>
+        แบรนด์:
+        <input type="text" v-model="blog.status" />
+>>>>>>> 01235aa450ee74d120fa205aedbece6abe0c82f9
       </p>
       <p>
         Type:
@@ -47,12 +71,27 @@ export default {
   data() {
     return {
       blog: {
+<<<<<<< HEAD
         pictures: "", // ควรเก็บเป็น array ถ้าคุณต้องการส่งหลายรูป
         name: "",
         color: "",
         type: "",
         brand: "",
         price: "",
+=======
+        title: "",
+        thumbnail: "null",
+        pictures: "null",
+        content: "",
+        category: "",
+        status: "",
+      },
+      config: {
+        toolbar: [
+          ["Bold", "Italic", "Underline", "Strike", "Subscript", "Superscript"],
+        ],
+        height: 300,
+>>>>>>> 01235aa450ee74d120fa205aedbece6abe0c82f9
       },
       pictures: [],
       BASE_URL: "http://localhost:8081/assets/uploads/",

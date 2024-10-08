@@ -70,5 +70,7 @@ module.exports = {
                 error: 'The blog information was incorrect'
             })
         }
+        
     }
+     
 }

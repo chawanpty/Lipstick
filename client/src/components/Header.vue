@@ -3,9 +3,14 @@
     <div class="nv-navbar">
       <ul class="nav">
         <li><router-link :to="{ name: 'users' }">Users</router-link></li>
+<<<<<<< HEAD
         <li><router-link :to="{ name: 'blogs' }">Lipstick</router-link></li>
         <li><router-link :to="{ name: 'login' }">Login</router-link></li>
         <!-- <li><router-link :to="{ name: 'comments' }">Comments</router-link></li> -->
+=======
+        <!-- <li><router-link :to="{ name: 'comments' }">Comments</router-link></li> -->
+        <li><router-link :to="{ name: 'login' }">Login</router-link></li>
+>>>>>>> 01235aa450ee74d120fa205aedbece6abe0c82f9
         
       </ul>
     </div>

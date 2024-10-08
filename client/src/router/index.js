@@ -7,7 +7,16 @@ import UserCreate from '@/components/User/CreateUser'
 import UserShow from '@/components/User/ShowUser'
 import Login from '@/components/Login'
 
+
+
+import UploadService from '@/services/UploadService'
+const STATUS_INITIAL = 0,
+STATUS_SAVING = 1,
+STATUS_SUCCESS = 2,
+STATUS_FAILED = 3;
+
 import CommentIndex from '@/components/Comments/index' 
+import Upload from '@/components/Utils/upload'
 
 import BlogIndex from '@/components/Blogs/index'
 import BlogCreate from '@/components/Blogs/CreateBlog'
@@ -69,5 +78,13 @@ export default new Router({
       name: 'comments',
       component: CommentIndex
     },
+    {
+      path: '/Upload',
+      name: 'upload',
+      component: Upload
+    },
+
+    
   ]
+  
 })
