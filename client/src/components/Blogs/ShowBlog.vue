@@ -2,7 +2,6 @@
     <div>
         <h1>Show Lipstick</h1>
         <p>id: {{ blog.id }}</p>
-<<<<<<< HEAD
         <p>Name: {{ blog.name }}</p>
         <p>Color: {{ blog.color }}</p>
         <p>Type: {{ blog.type }}</p>
@@ -11,16 +10,6 @@
         <p>
         <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">Edit</button>
         <button v-on:click="navigateTo('/blogs')">Back </button>
-=======
-        <p>ชื่อ: {{ blog.title }}</p>
-        <p>สี: {{ blog.content }}</p>
-        <p>ประเภท: {{ blog.category }}</p>
-        <p>แบรนด์: {{ blog.status }}</p>
-        <p>
-        <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">แก้ไข
-        Lipstick</button>
-        <button v-on:click="navigateTo('/blogs')">กลับ </button>
->>>>>>> 01235aa450ee74d120fa205aedbece6abe0c82f9
         </p>
     </div>
 </template>
