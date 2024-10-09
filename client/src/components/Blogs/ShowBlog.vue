@@ -1,40 +1,148 @@
 <template>
-    <div>
-        <h1>Show Lipstick</h1>
-        <p>id: {{ blog.id }}</p>
-        <p>Name: {{ blog.name }}</p>
-        <p>Color: {{ blog.color }}</p>
-        <p>Type: {{ blog.type }}</p>
-        <p>Brand: {{ blog.brand }}</p>
-        <p>Price: {{ blog.price }}</p>
-        <p>
-        <button v-on:click="navigateTo('/blog/edit/'+ blog.id)">Edit</button>
-        <button v-on:click="navigateTo('/blogs')">Back </button>
-        </p>
+    <div class="lipstick-show-container">
+        <header>
+            <h1>Show Lipstick</h1>
+        </header>
+        
+        <div class="lipstick-details">
+            <img class="lipstick-image" 
+                 :src="BASE_URL + blog.pictures.split(', ')[0]" 
+                 alt="Lipstick Image"
+                 @click="viewImage(BASE_URL + blog.pictures.split(', ')[0])">
+            <div class="details-content">
+                <p><strong>ID:</strong> {{ blog.id }}</p>
+                <p><strong>Name:</strong> {{ blog.name }}</p>
+                <p><strong>Color:</strong> {{ blog.color }}</p>
+                <p><strong>Type:</strong> {{ blog.type }}</p>
+                <p><strong>Brand:</strong> {{ blog.brand }}</p>
+                <p><strong>Price:</strong> {{ blog.price }} ฿</p>
+            </div>
+        </div>
+        
+        <button class="back-btn" v-on:click="navigateTo('/blogs')">Back</button>
     </div>
 </template>
+
 <script>
     import BlogsService from '@/services/BlogsService'
     export default {
-        data () {
+        data() {
             return {
-                blog: null
+                blog: null,
+                BASE_URL: "http://localhost:8081/assets/uploads/"
             }
         },
-        async created () {
+        async created() {
             try {
                 let blogId = this.$route.params.blogId
                 this.blog = (await BlogsService.show(blogId)).data
             } catch (error) {
-                console.log (error)
+                console.log(error)
             }
         },
-        methods : {
-            navigateTo (route) {
+        methods: {
+            navigateTo(route) {
                 this.$router.push(route)
+            },
+            viewImage(imageUrl) {
+                // Open the image in a new tab
+                window.open(imageUrl, '_blank');
             },
         }
     }
 </script>
+
 <style scoped>
+/* General Layout */
+.lipstick-show-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Style */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 36px;
+    color: #ff6f91;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Lipstick Details */
+.lipstick-details {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.lipstick-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #ff6f91;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.lipstick-image:hover {
+    transform: scale(1.05);
+}
+
+.details-content {
+    flex-grow: 1;
+    font-size: 16px;
+}
+
+.details-content p {
+    margin: 8px 0;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Shortened Back Button Style */
+.back-btn {
+    display: block; /* Ensures the button takes the full width */
+    width: auto; /* Make the back button auto width */
+    margin: 20px auto; /* Center the button with margin */
+    background-color: #ff6584;
+    color: white;
+    border: none;
+    padding: 10px 15px; /* Adjusted padding for a smaller button */
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #ff4757;
+    transform: scale(1.08);
+}
+
+/* Edit Button Style (optional, can be added) */
+.edit-btn {
+    background-color: #ab45e2;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #23211e;
+    transform: scale(1.1);
+}
 </style>

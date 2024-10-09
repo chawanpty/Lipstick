@@ -8,7 +8,7 @@
       <ul class="pictures">
         <li v-for="picture in pictures" :key="picture.id">
           <br>
-          <img :src="BASE_URL + picture.name" alt="picture image" style="width: 200px;">
+          <img :src="BASE_URL + picture.name" alt="pictures image" style="width: 200px;">
         </li>
       </ul>
       </p>
@@ -20,10 +20,18 @@
         Color:
         <input type="text" v-model="blog.color" />
       </p>
-      <p>
-        Type:
-        <input type="text" v-model="blog.type" />
-      </p>
+      <p> 
+  Type:
+  <select v-model="blog.type" class="dropdown">
+    <option disabled value="">Select Lipstick Type</option>
+    <option value="แมตต์">เนื้อแมตต์</option>
+    <option value="กลอส">เนื้อกลอส</option>
+    <option value="เชียร์">เนื้อเชียร์และซาติน</option>
+    <option value="ลิปมัน">ลิปมันและลิปบาล์ม</option>
+    <option value="ทินท์">เนื้อทินท์</option>
+  </select>
+</p>
+
       <p>
         Brand:
         <input type="text" v-model="blog.brand" />
@@ -96,8 +104,8 @@ export default {
 <style scoped>
 /* General Layout */
 body {
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #e9f5ff, #fdfbfb);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   color: #333;
   margin: 0;
   padding: 0;
@@ -106,30 +114,32 @@ body {
 
 h1 {
   font-size: 36px;
-  color: #4A90E2;
+  color: #ff6f91;
   text-align: center;
   margin-bottom: 40px;
-  font-weight: 600;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Form Styling */
 form {
-  max-width: 600px;
-  margin: 0 auto;
-  background: white;
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  border-radius: 25px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 form:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2);
 }
 
 p {
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 input[type="text"], 
@@ -137,36 +147,38 @@ input[type="file"] {
   width: 100%;
   padding: 15px;
   margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
   font-size: 16px;
   transition: all 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="file"]:focus {
-  border-color: #4A90E2;
-  box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+  border-color: #ff6f91;
+  box-shadow: 0 0 15px rgba(255, 111, 145, 0.4);
   outline: none;
 }
 
 /* Buttons Styling */
 button {
-  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  background: linear-gradient(135deg, #ff6f91, #ff9671, #ffc75f);
   color: white;
   padding: 12px 30px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   transition: background 0.3s ease, transform 0.3s ease;
   margin-right: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-  background: linear-gradient(135deg, #3f9ec2, #207a8e);
-  transform: translateY(-4px);
+  background: linear-gradient(135deg, #ff6584, #ff4757);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 button:focus {
@@ -194,12 +206,13 @@ button:last-of-type:hover {
   margin-right: 10px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
 
 .pictures li:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .pictures img {
@@ -211,6 +224,36 @@ button:last-of-type:hover {
 .pictures li:last-child {
   margin-right: 0;
 }
+
+/* ปรับปรุง Dropdown Styling */
+input[type="text"],
+  .dropdown {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    appearance: none; /* Hide default dropdown arrow */
+    background-color: white; /* Set background color */
+  }
+  
+  input[type="text"]:focus,
+  .dropdown:focus {
+    border-color: #ff6f91;
+    box-shadow: 0 0 15px rgba(255, 111, 145, 0.4);
+    outline: none;
+  }
+
+  /* Custom dropdown styling */
+  .dropdown {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20height%3D'24'%3E%3Cpath%20d%3D'M7%2010l5%205%205-5z'%20fill%3D'%23ff6f91'%20/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px 20px;
+  }
 
 
 </style>
