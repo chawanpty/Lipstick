@@ -34,6 +34,7 @@
       </p>
       <p>
         <button type="submit">Add Lipstick</button>
+        <button v-on:click="navigateTo('/blogs')">back</button>
       </p>
     </form>
   </div>
@@ -93,14 +94,123 @@ export default {
 </script>
 
 <style scoped>
+/* General Layout */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #e9f5ff, #fdfbfb);
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 36px;
+  color: #4A90E2;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+/* Form Styling */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+form:hover {
+  transform: translateY(-5px);
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+input[type="text"], 
+input[type="file"] {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+  border-color: #4A90E2;
+  box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+  outline: none;
+}
+
+/* Buttons Styling */
+button {
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-right: 10px;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #3f9ec2, #207a8e);
+  transform: translateY(-4px);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:last-of-type {
+  background: linear-gradient(135deg, #ff6b6b, #f94d5b);
+}
+
+button:last-of-type:hover {
+  background: linear-gradient(135deg, #f94d5b, #d84343);
+}
+
+/* Pictures List Styling */
 .pictures {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 20px 0;
+  text-align: center;
 }
- 
+
 .pictures li {
   display: inline-block;
   margin-right: 10px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
+
+.pictures li:hover {
+  transform: scale(1.05);
+}
+
+.pictures img {
+  width: 200px;
+  height: auto;
+  border-radius: 15px;
+}
+
+.pictures li:last-child {
+  margin-right: 0;
+}
+
+
 </style>
