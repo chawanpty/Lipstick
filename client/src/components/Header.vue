@@ -4,7 +4,7 @@
       <ul class="nav">
         <li><router-link :to="{ name: 'login' }">Login</router-link></li>
         <li><router-link :to="{ name: 'users' }">Users</router-link></li>
-        <li><router-link :to="{ name: 'blogs' }">Lipstick</router-link></li>
+        <li><router-link :to="{ name: 'lipsticks' }">Lipstick</router-link></li>
         
       </ul>
     </div>

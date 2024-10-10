@@ -6,36 +6,36 @@
         
         <div class="lipstick-details">
             <img class="lipstick-image" 
-                 :src="BASE_URL + blog.pictures.split(', ')[0]" 
+                 :src="BASE_URL + lipstick.pictures.split(', ')[0]" 
                  alt="Lipstick Image"
-                 @click="viewImage(BASE_URL + blog.pictures.split(', ')[0])">
+                 @click="viewImage(BASE_URL + lipstick.pictures.split(', ')[0])">
             <div class="details-content">
-                <p><strong>ID:</strong> {{ blog.id }}</p>
-                <p><strong>Name:</strong> {{ blog.name }}</p>
-                <p><strong>Color:</strong> {{ blog.color }}</p>
-                <p><strong>Type:</strong> {{ blog.type }}</p>
-                <p><strong>Brand:</strong> {{ blog.brand }}</p>
-                <p><strong>Price:</strong> {{ blog.price }} ฿</p>
+                <p><strong>ID:</strong> {{ lipstick.id }}</p>
+                <p><strong>Name:</strong> {{ lipstick.name }}</p>
+                <p><strong>Color:</strong> {{ lipstick.color }}</p>
+                <p><strong>Type:</strong> {{ lipstick.type }}</p>
+                <p><strong>Brand:</strong> {{ lipstick.brand }}</p>
+                <p><strong>Price:</strong> {{ lipstick.price }} ฿</p>
             </div>
         </div>
         
-        <button class="back-btn" v-on:click="navigateTo('/blogs')">Back</button>
+        <button class="back-btn" v-on:click="navigateTo('/lipsticks')">Back</button>
     </div>
 </template>
 
 <script>
-    import BlogsService from '@/services/BlogsService'
+    import LipsticksService from '@/services/LipsticksService'
     export default {
         data() {
             return {
-                blog: null,
+                lipstick: null,
                 BASE_URL: "http://localhost:8081/assets/uploads/"
             }
         },
         async created() {
             try {
-                let blogId = this.$route.params.blogId
-                this.blog = (await BlogsService.show(blogId)).data
+                let lipstickId = this.$route.params.lipstickId
+                this.lipstick = (await LipsticksService.show(lipstickId)).data
             } catch (error) {
                 console.log(error)
             }

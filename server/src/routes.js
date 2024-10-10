@@ -1,7 +1,7 @@
 const UserController = require('./controllers/UserController');
 const UserAuthenController = require('./controllers/UserAuthenController');
 const isAuthenController = require('./authen/isAuthenController');
-const BlogController = require('./controllers/BlogController');
+const LipstickController = require('./controllers/LipstickController');
 
 let multer = require("multer");
 
@@ -25,11 +25,11 @@ module.exports = (app) => {
     app.put('/user/:userId', UserController.put);
     app.delete('/user/:userId', UserController.remove);
     app.post('/login', UserAuthenController.login);
-    app.post('/blog', BlogController.create);
-    app.put('/blog/:blogId', BlogController.put);
-    app.delete('/blog/:blogId', BlogController.remove);
-    app.get('/blog/:blogId', BlogController.show);
-    app.get('/blogs', BlogController.index);
+    app.post('/lipstick', LipstickController.create);
+    app.put('/lipstick/:lipstickId', LipstickController.put);
+    app.delete('/lipstick/:lipstickId', LipstickController.remove);
+    app.get('/lipstick/:lipstickId', LipstickController.show);
+    app.get('/lipsticks', LipstickController.index);
 
     // upload
     app.post("/upload", function (req, res) {
@@ -46,17 +46,15 @@ module.exports = (app) => {
         try {
             const fs = require('fs');
             console.log(req.body.filename)
-            242
             fs.unlink(process.cwd() + '/public/uploads/' + req.body.filename,
                 (err) => {
                     if (err) throw err;
-                    res.send("Delete sucessful")
-                    // console.log('successfully deleted material file');
+                    res.send("Delete successful");
                 });
         } catch (err) {
             res.status(500).send({
-                error: 'An error has occured trying to delete file the material'
-            })
+                error: 'An error has occured trying to delete the file'
+            });
         }
-    })
+    });
 }

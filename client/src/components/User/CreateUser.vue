@@ -1,60 +1,71 @@
 <template>
   <div>
-    <h1>Create User</h1>
-    <form v-on:submit.prevent="createUser">
+    <h1>Add Lipstick</h1>
+    <form v-on:submit.prevent="createLipstick">
+      <!-- Form fields here -->
       <p>
-        Name:
-        <input type="text" v-model="user.name" />
-      </p>
-      <p>
-        Lastname:
-        <input type="text" v-model="user.lastname" />
-      </p>
-      <p>
-        Email:
-        <input type="text" v-model="user.email" />
-      </p>
-      <p>
-        Password:
-        <input type="password" v-model="user.password" />
-      </p>
-      <p>
-        <button type="submit">Create User</button>
-        <button v-on:click="navigateTo('/users')">Back</button>
+        <button type="submit">Add Lipstick</button>
+        <button v-on:click="navigateTo('/lipsticks')">Back</button>
       </p>
     </form>
   </div>
 </template>
 
 <script>
-import UsersService from '../../services/UsersService';
+import LipsticksService from "@/services/LipsticksService";
+import UploadService from "@/services/UploadService"; 
+
 export default {
   data() {
     return {
-      user: {
-        name: '',
-        lastname: '',
-        email: '',
-        password: '',
-        status: 'active'
-      }
+      lipstick: {
+        pictures: "",
+        name: "",
+        color: "",
+        type: "",
+        brand: "",
+        price: "",
+      },
+      pictures: [],
+      BASE_URL: "http://localhost:8081/assets/uploads/",
     };
   },
   methods: {
-    async createUser() {
+    async createLipstick() {
+      if (this.pictures.length === 0) {
+        alert("Please upload at least one picture.");
+        return;
+      }
+
+      this.lipstick.pictures = this.pictures.map(p => p.name).join(", ");
+
       try {
-        await UsersService.post(this.user);
-        this.$router.push('/users');
+        await LipsticksService.post(this.lipstick);
+        this.$emit('lipstick-added'); // ส่งสัญญาณเมื่อเพิ่มลิปสติกสำเร็จ
+        this.$router.push({
+          name: "lipsticks",
+        });
       } catch (err) {
         console.log(err);
       }
     },
+
+    async filesChange(fileList) {
+      const formData = new FormData();
+      Array.from(fileList).forEach(file => {
+        formData.append('images', file);
+        this.pictures.push({ id: this.pictures.length + 1, name: file.name });
+      });
+
+      await UploadService.upload(formData);
+    },
     navigateTo(route) {
       this.$router.push(route);
     }
-  }
+  },
 };
 </script>
+
 
 <style scoped>
 /* General Layout */
@@ -99,7 +110,7 @@ p {
 
 input[type="text"],
 input[type="password"] {
-  width: 100%;
+  width: 95%; /* เปลี่ยนจาก 100% เป็น 95% */
   padding: 15px;
   margin-top: 10px;
   border: 2px solid #ddd;
@@ -108,6 +119,7 @@ input[type="password"] {
   font-size: 16px;
   transition: all 0.3s ease;
 }
+
 
 input[type="text"]:focus,
 input[type="password"]:focus {

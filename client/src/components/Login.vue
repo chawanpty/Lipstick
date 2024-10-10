@@ -1,7 +1,8 @@
 <template>
   <div class="login-container">
-    <h1>User Login</h1>
     <form v-on:submit.prevent="onLogin">
+    <h1>User Login</h1>
+    
       <p>
         <label for="email">Email</label>
         <input type="email" id="email" name="email" v-model="email" required />

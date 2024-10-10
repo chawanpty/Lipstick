@@ -1,62 +1,61 @@
 <template>
   <div>
     <h1>Add Lipstick</h1>
-    <form v-on:submit.prevent="createBlog">
+    <form v-on:submit.prevent="createLipstick">
       <p>
         Picture:
         <input type="file" multiple @change="filesChange($event.target.files)" accept="image/*" />
-      <ul class="pictures">
-        <li v-for="picture in pictures" :key="picture.id">
-          <br>
-          <img :src="BASE_URL + picture.name" alt="pictures image" style="width: 200px;">
-        </li>
-      </ul>
+        <ul class="pictures">
+          <li v-for="picture in pictures" :key="picture.id">
+            <br>
+            <img :src="BASE_URL + picture.name" alt="pictures image" style="width: 200px;">
+          </li>
+        </ul>
       </p>
       <p>
         Name:
-        <input type="text" v-model="blog.name" />
+        <input type="text" v-model="lipstick.name" />
       </p>
       <p>
         Color:
-        <input type="text" v-model="blog.color" />
+        <input type="text" v-model="lipstick.color" />
       </p>
       <p> 
-  Type:
-  <select v-model="blog.type" class="dropdown">
-    <option disabled value="">Select Lipstick Type</option>
-    <option value="แมตต์">เนื้อแมตต์</option>
-    <option value="กลอส">เนื้อกลอส</option>
-    <option value="เชียร์">เนื้อเชียร์และซาติน</option>
-    <option value="ลิปมัน">ลิปมันและลิปบาล์ม</option>
-    <option value="ทินท์">เนื้อทินท์</option>
-  </select>
-</p>
-
+        Type:
+        <select v-model="lipstick.type" class="dropdown">
+          <option disabled value="">Select Lipstick Type</option>
+          <option value="แมตต์">เนื้อแมตต์</option>
+          <option value="กลอส">เนื้อกลอส</option>
+          <option value="เชียร์">เนื้อเชียร์และซาติน</option>
+          <option value="ลิปมัน">ลิปมันและลิปบาล์ม</option>
+          <option value="ทินท์">เนื้อทินท์</option>
+        </select>
+      </p>
       <p>
         Brand:
-        <input type="text" v-model="blog.brand" />
+        <input type="text" v-model="lipstick.brand" />
       </p>
       <p>
         Price:
-        <input type="text" v-model="blog.price" />
+        <input type="text" v-model="lipstick.price" />
       </p>
       <p>
         <button type="submit">Add Lipstick</button>
-        <button v-on:click="navigateTo('/blogs')">back</button>
+        <button v-on:click="navigateTo('/lipsticks')">Back</button>
       </p>
     </form>
   </div>
 </template>
 
 <script>
-import BlogsService from "@/services/BlogsService";
-// import UploadService from "@/services/UploadService"; // เพิ่มการนำเข้า UploadService
+import LipsticksService from "@/services/LipsticksService";
+import UploadService from "@/services/UploadService";
 
 export default {
   data() {
     return {
-      blog: {
-        pictures: "", // ควรเก็บเป็น array ถ้าคุณต้องการส่งหลายรูป
+      lipstick: {
+        pictures: "",
         name: "",
         color: "",
         type: "",
@@ -68,20 +67,20 @@ export default {
     };
   },
   methods: {
-    async createBlog() {
+    async createLipstick() {
       if (this.pictures.length === 0) {
         alert("Please upload at least one picture.");
         return;
       }
 
-      // อัปเดตชื่อไฟล์ภาพใน blog ก่อนส่งไปยังเซิร์ฟเวอร์
-      this.blog.pictures = this.pictures.map(p => p.name).join(", "); // ส่งชื่อรูปภาพที่อัปโหลด
+      this.lipstick.pictures = this.pictures.map(p => p.name).join(", ");
 
       try {
-        await BlogsService.post(this.blog);
+        await LipsticksService.post(this.lipstick);
         this.$router.push({
-          name: "blogs",
+          name: "lipsticks",
         });
+        this.$router.go(0); // รีโหลดหน้าเพื่อดึงข้อมูลใหม่
       } catch (err) {
         console.log(err);
       }
@@ -90,13 +89,15 @@ export default {
     async filesChange(fileList) {
       const formData = new FormData();
       Array.from(fileList).forEach(file => {
-        formData.append('images', file); // กำหนดชื่อฟิลด์ตามที่เซิร์ฟเวอร์ต้องการ
+        formData.append('images', file);
         this.pictures.push({ id: this.pictures.length + 1, name: file.name });
       });
 
-      // อัปโหลดไฟล์ภาพไปยังเซิร์ฟเวอร์
       await UploadService.upload(formData);
     },
+    navigateTo(route) {
+      this.$router.push(route);
+    }
   },
 };
 </script>
@@ -227,33 +228,31 @@ button:last-of-type:hover {
 
 /* ปรับปรุง Dropdown Styling */
 input[type="text"],
-  .dropdown {
-    width: 100%;
-    padding: 15px;
-    margin-top: 10px;
-    border: 2px solid #ddd;
-    border-radius: 15px;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
-    font-size: 16px;
-    transition: all 0.3s ease;
-    appearance: none; /* Hide default dropdown arrow */
-    background-color: white; /* Set background color */
-  }
-  
-  input[type="text"]:focus,
-  .dropdown:focus {
-    border-color: #ff6f91;
-    box-shadow: 0 0 15px rgba(255, 111, 145, 0.4);
-    outline: none;
-  }
+.dropdown {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  appearance: none; /* Hide default dropdown arrow */
+  background-color: white; /* Set background color */
+}
 
-  /* Custom dropdown styling */
-  .dropdown {
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20height%3D'24'%3E%3Cpath%20d%3D'M7%2010l5%205%205-5z'%20fill%3D'%23ff6f91'%20/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 20px 20px;
-  }
+input[type="text"]:focus,
+.dropdown:focus {
+  border-color: #ff6f91;
+  box-shadow: 0 0 15px rgba(255, 111, 145, 0.4);
+  outline: none;
+}
 
-
+/* Custom dropdown styling */
+.dropdown {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20height%3D'24'%3E%3Cpath%20d%3D'M7%2010l5%205%205-5z'%20fill%3D'%23ff6f91'%20/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px 20px;
+}
 </style>
