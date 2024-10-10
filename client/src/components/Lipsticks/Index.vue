@@ -19,8 +19,10 @@
       <button v-on:click="filterCategory('ลิปมัน')">ลิปมันและลิปบาล์ม</button>
       <button v-on:click="filterCategory('ทินท์')">เนื้อทินท์</button>
     </div>
-
-    <div class="lipstick-card" v-for="lipstick in filteredLipsticks" v-bind:key="lipstick.id">
+      <div v-if="filteredLipsticks.length === 0">
+      <p>ไม่มีข้อมูลที่จะแสดง</p>
+      </div>
+<div class="lipstick-card" v-for="lipstick in filteredLipsticks" v-bind:key="lipstick.id">
       <img class="lipstick-image" :src="BASE_URL + lipstick.pictures.split(', ')[0]" alt="pictures image">
       <div class="lipstick-details">
         <p><strong>ID:</strong> {{ lipstick.id }}</p>
