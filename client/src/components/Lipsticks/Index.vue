@@ -2,7 +2,7 @@
 <template>
   <div class="lipstick-list-container">
     <header>
-      <h2>Get all Lipstick</h2>
+      <h2>Your Dream Lipstick Collection</h2>
       <button class="logout-btn" v-on:click="logout">Logout</button>
     </header>
     
@@ -19,10 +19,10 @@
       <button v-on:click="filterCategory('ลิปมัน')">ลิปมันและลิปบาล์ม</button>
       <button v-on:click="filterCategory('ทินท์')">เนื้อทินท์</button>
     </div>
-      <div v-if="filteredLipsticks.length === 0">
+    <div v-if="filteredLipsticks.length === 0">
       <p>ไม่มีข้อมูลที่จะแสดง</p>
-      </div>
-<div class="lipstick-card" v-for="lipstick in filteredLipsticks" v-bind:key="lipstick.id">
+    </div>
+    <div class="lipstick-card" v-for="lipstick in filteredLipsticks" v-bind:key="lipstick.id">
       <img class="lipstick-image" :src="BASE_URL + lipstick.pictures.split(', ')[0]" alt="pictures image">
       <div class="lipstick-details">
         <p><strong>ID:</strong> {{ lipstick.id }}</p>
@@ -91,7 +91,6 @@ export default {
     }
   }
 };
-
 </script>
 
 <style scoped>
@@ -109,18 +108,18 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #ff6f91, #ff9671, #ffc75f);
-  padding: 20px 40px;
+  background: radial-gradient(circle, #ff758c, #ff7eb3, #ff98b7);
+  padding: 25px 50px;
   color: white;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 20px 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 30px 30px;
 }
 
 header h2 {
   margin: 0;
-  font-size: 28px;
+  font-size: 32px;
+  letter-spacing: 1.5px;
   font-weight: bold;
-  letter-spacing: 1px;
 }
 
 .logout-btn {
@@ -132,7 +131,7 @@ header h2 {
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease, transform 0.3s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .logout-btn:hover {
@@ -140,6 +139,7 @@ header h2 {
   transform: scale(1.08);
 }
 
+/* Lipstick List Container */
 .lipstick-list-container {
   max-width: 1100px;
   margin: 50px auto;
@@ -150,7 +150,6 @@ header h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* หมวดหมู่ลิปสติก */
 .lipstick-categories {
   display: flex;
   justify-content: center;
