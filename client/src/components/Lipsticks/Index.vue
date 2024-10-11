@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import LipsticksService from '@/services/LipsticksService';
+import LipsticksService from '@/services/LipsticksService'
 export default {
   data() {
     return {
       lipsticks: [],
       filteredLipsticks: [],
-      BASE_URL: "http://localhost:8081/assets/uploads/"
+      BASE_URL: 'http://localhost:8081/assets/uploads/' 
     }
   },
   async created() {

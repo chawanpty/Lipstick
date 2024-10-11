@@ -8,7 +8,7 @@
         <ul class="pictures">
           <li v-for="picture in pictures" :key="picture.id">
             <br>
-            <img :src="BASE_URL + picture.name" alt="pictures image" style="width: 200px;">
+            <img :src="BASE_URL + picture.name" alt="picture image" style="width: 200px;">
           </li>
         </ul>
       </p>

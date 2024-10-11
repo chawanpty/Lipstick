@@ -29,7 +29,7 @@ module.exports = (app) => {
     app.put('/lipstick/:lipstickId', LipstickController.put);
     app.delete('/lipstick/:lipstickId', LipstickController.remove);
     app.get('/lipstick/:lipstickId', LipstickController.show);
-    app.get('/lipsticks', LipstickController.index);
+    app.get('/lipstick', LipstickController.index);
 
     // upload
     app.post("/upload", function (req, res) {
